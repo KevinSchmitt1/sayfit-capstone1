@@ -29,7 +29,7 @@ This template gives you a clean baseline for building a Retrieval-Augmented Gene
 
 ## Quickstart
 
-1. Create a virtual environment and install dependencies:
+1. Create a virtual environment __(python version 3.14.0)__ and install dependencies:
 
 ```bash
 python -m venv .venv
