@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "name": "banana",
+      "amount": 100.0,
+      "unit": "g",
+      "matched_name": "banana",
+      "nutrition": {
+        "calories": 89.0,
+        "protein": 1.1,
+        "fiber": 2.6
+      }
+    },
+    {
+      "name": "almond milk",
+      "amount": 200.0,
+      "unit": "ml",
+      "matched_name": "almond milk",
+      "nutrition": {
+        "calories": 30.0,
+        "protein": 1.2,
+        "fiber": 0.4
+      }
+    },
+    {
+      "name": "spinach",
+      "amount": 30.0,
+      "unit": "g",
+      "matched_name": "spinach",
+      "nutrition": {
+        "calories": 6.9,
+        "protein": 0.87,
+        "fiber": 0.66
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T21:30:00",
+  "totals": {
+    "calories": 125.9,
+    "protein": 3.17,
+    "fiber": 3.66
+  }
+}

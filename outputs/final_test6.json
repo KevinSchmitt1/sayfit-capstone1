@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "name": "whole grain bread",
+      "amount": 30.0,
+      "unit": "g",
+      "matched_name": "whole grain bread",
+      "nutrition": {
+        "calories": 74.1,
+        "protein": 3.9,
+        "fiber": 2.1
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T20:00:00",
+  "totals": {
+    "calories": 74.1,
+    "protein": 3.9,
+    "fiber": 2.1
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "name": "yogurt",
+      "amount": 120.0,
+      "unit": "g",
+      "matched_name": "yogurt",
+      "nutrition": {
+        "calories": 70.8,
+        "protein": 12.0,
+        "fiber": 0.0
+      }
+    },
+    {
+      "name": "blueberries",
+      "amount": 50.0,
+      "unit": "g",
+      "matched_name": "blueberries",
+      "nutrition": {
+        "calories": 28.5,
+        "protein": 0.35,
+        "fiber": 1.2
+      }
+    },
+    {
+      "name": "honey",
+      "amount": 10.0,
+      "unit": "g",
+      "matched_name": "honey",
+      "nutrition": {
+        "calories": 30.4,
+        "protein": 0.03,
+        "fiber": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T15:00:00",
+  "totals": {
+    "calories": 129.7,
+    "protein": 12.379999999999999,
+    "fiber": 1.2
+  }
+}

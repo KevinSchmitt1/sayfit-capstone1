@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "name": "oatmeal",
+      "amount": 100.0,
+      "unit": "g",
+      "matched_name": "oatmeal",
+      "nutrition": {
+        "calories": 389.0,
+        "protein": 16.9,
+        "fiber": 10.6
+      }
+    },
+    {
+      "name": "apple",
+      "amount": 150.0,
+      "unit": "g",
+      "matched_name": "apple",
+      "nutrition": {
+        "calories": 78.0,
+        "protein": 0.45,
+        "fiber": 3.6
+      }
+    },
+    {
+      "name": "almond milk",
+      "amount": 200.0,
+      "unit": "ml",
+      "matched_name": "almond milk",
+      "nutrition": {
+        "calories": 30.0,
+        "protein": 1.2,
+        "fiber": 0.4
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T08:00:00",
+  "totals": {
+    "calories": 497.0,
+    "protein": 18.549999999999997,
+    "fiber": 14.6
+  }
+}

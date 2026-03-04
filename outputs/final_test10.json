@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "name": "pasta",
+      "amount": 150.0,
+      "unit": "g",
+      "matched_name": "pasta",
+      "nutrition": {
+        "calories": 196.5,
+        "protein": 7.5,
+        "fiber": 3.75
+      }
+    },
+    {
+      "name": "tomato sauce",
+      "amount": 100.0,
+      "unit": "g",
+      "matched_name": "tomato sauce",
+      "nutrition": {
+        "calories": 29.0,
+        "protein": 1.2,
+        "fiber": 1.5
+      }
+    },
+    {
+      "name": "parmesan",
+      "amount": 50.0,
+      "unit": "g",
+      "matched_name": "parmesan",
+      "nutrition": {
+        "calories": 215.5,
+        "protein": 19.0,
+        "fiber": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-05T13:00:00",
+  "totals": {
+    "calories": 441.0,
+    "protein": 27.7,
+    "fiber": 5.25
+  }
+}

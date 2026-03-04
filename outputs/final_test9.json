@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "name": "apple",
+      "amount": 20.0,
+      "unit": "g",
+      "matched_name": "apple",
+      "nutrition": {
+        "calories": 10.4,
+        "protein": 0.06,
+        "fiber": 0.48
+      }
+    }
+  ],
+  "timestamp": "2026-03-05T10:00:00",
+  "totals": {
+    "calories": 10.4,
+    "protein": 0.06,
+    "fiber": 0.48
+  }
+}
