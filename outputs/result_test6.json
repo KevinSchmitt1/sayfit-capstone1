@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "name": "whole grain bread",
+      "original_amount": 2.0,
+      "original_unit": "slice",
+      "matched_name": "WHOLE GRAIN BREAD",
+      "matched_source": "usda",
+      "amount_grams": 70.0,
+      "nutrition": {
+        "calories": 189.0,
+        "protein": 7.57,
+        "carbs": 37.83,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "peanut butter",
+      "original_amount": 30.0,
+      "original_unit": "g",
+      "matched_name": "PEANUT BUTTER",
+      "matched_source": "usda",
+      "amount_grams": 30.0,
+      "nutrition": {
+        "calories": 178.2,
+        "protein": 6.56,
+        "carbs": 6.56,
+        "fat": 14.06
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T20:00:00",
+  "totals": {
+    "calories": 367.2,
+    "protein": 14.13,
+    "carbs": 44.39,
+    "fat": 14.06
+  }
+}

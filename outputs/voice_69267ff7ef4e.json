@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "name": "pizza",
+      "original_amount": 0.5,
+      "original_unit": "serving",
+      "matched_name": "PIZZA",
+      "matched_source": "usda",
+      "amount_grams": 75.0,
+      "nutrition": {
+        "calories": 167.25,
+        "protein": 8.05,
+        "carbs": 16.73,
+        "fat": 8.05
+      }
+    },
+    {
+      "name": "red wine",
+      "original_amount": 0.125,
+      "original_unit": "serving",
+      "matched_name": "RED WINE VINEGAR, RED WINE",
+      "matched_source": "usda",
+      "amount_grams": 12.5,
+      "nutrition": {
+        "calories": 0.0,
+        "protein": 0.0,
+        "carbs": 0.0,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "apple pie",
+      "original_amount": 0.3333333333,
+      "original_unit": "serving",
+      "matched_name": "APPLE PIE",
+      "matched_source": "usda",
+      "amount_grams": 60.0,
+      "nutrition": {
+        "calories": 158.4,
+        "protein": 1.13,
+        "carbs": 24.34,
+        "fat": 8.49
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T15:44:02",
+  "totals": {
+    "calories": 325.65,
+    "protein": 9.18,
+    "carbs": 41.07,
+    "fat": 16.54
+  }
+}

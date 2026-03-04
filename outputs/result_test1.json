@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "name": "oatmeal",
+      "original_amount": 100.0,
+      "original_unit": "g",
+      "matched_name": "OATMEAL",
+      "matched_source": "usda",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 333.0,
+        "protein": 7.02,
+        "carbs": 68.42,
+        "fat": 3.51
+      }
+    },
+    {
+      "name": "apple",
+      "original_amount": 150.0,
+      "original_unit": "g",
+      "matched_name": "APPLE",
+      "matched_source": "usda",
+      "amount_grams": 150.0,
+      "nutrition": {
+        "calories": 69.0,
+        "protein": 0.0,
+        "carbs": 17.5,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "almond milk",
+      "original_amount": 200.0,
+      "original_unit": "ml",
+      "matched_name": "PURE ALMOND MILK",
+      "matched_source": "usda",
+      "amount_grams": 200.0,
+      "nutrition": {
+        "calories": 78.0,
+        "protein": 1.82,
+        "carbs": 12.12,
+        "fat": 3.04
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T08:00:00",
+  "totals": {
+    "calories": 480.0,
+    "protein": 8.84,
+    "carbs": 98.04,
+    "fat": 6.55
+  }
+}

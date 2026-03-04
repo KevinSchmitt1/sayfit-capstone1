@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "name": "chicken",
+      "original_amount": 200.0,
+      "original_unit": "g",
+      "matched_name": "CHICKEN",
+      "matched_source": "usda",
+      "amount_grams": 200.0,
+      "nutrition": {
+        "calories": 334.0,
+        "protein": 13.34,
+        "carbs": 66.66,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "broccoli",
+      "original_amount": 100.0,
+      "original_unit": "g",
+      "matched_name": "BROCCOLI WOKLY",
+      "matched_source": "usda",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 35.0,
+        "protein": 2.35,
+        "carbs": 7.06,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "rice",
+      "original_amount": 150.0,
+      "original_unit": "g",
+      "matched_name": "RICE",
+      "matched_source": "usda",
+      "amount_grams": 150.0,
+      "nutrition": {
+        "calories": 534.0,
+        "protein": 10.0,
+        "carbs": 116.67,
+        "fat": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T12:45:00",
+  "totals": {
+    "calories": 903.0,
+    "protein": 25.69,
+    "carbs": 190.39,
+    "fat": 0.0
+  }
+}

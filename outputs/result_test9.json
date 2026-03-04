@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "name": "apple",
+      "original_amount": 1.0,
+      "original_unit": "piece",
+      "matched_name": "APPLE",
+      "matched_source": "usda",
+      "amount_grams": 180.0,
+      "nutrition": {
+        "calories": 82.8,
+        "protein": 0.0,
+        "carbs": 21.01,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "walnuts",
+      "original_amount": 20.0,
+      "original_unit": "g",
+      "matched_name": "WALNUTS",
+      "matched_source": "usda",
+      "amount_grams": 20.0,
+      "nutrition": {
+        "calories": 133.4,
+        "protein": 3.03,
+        "carbs": 3.03,
+        "fat": 13.33
+      }
+    }
+  ],
+  "timestamp": "2026-03-05T10:00:00",
+  "totals": {
+    "calories": 216.2,
+    "protein": 3.03,
+    "carbs": 24.04,
+    "fat": 13.33
+  }
+}

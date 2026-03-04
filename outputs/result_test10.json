@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "name": "pasta",
+      "original_amount": 150.0,
+      "original_unit": "g",
+      "matched_name": "PASTA",
+      "matched_source": "usda",
+      "amount_grams": 150.0,
+      "nutrition": {
+        "calories": 510.0,
+        "protein": 16.98,
+        "carbs": 99.06,
+        "fat": 4.25
+      }
+    },
+    {
+      "name": "tomato sauce",
+      "original_amount": 100.0,
+      "original_unit": "g",
+      "matched_name": "TOMATO SAUCE",
+      "matched_source": "usda",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 40.0,
+        "protein": 1.59,
+        "carbs": 9.52,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "parmesan",
+      "original_amount": 50.0,
+      "original_unit": "g",
+      "matched_name": "PARMESAN PESTO, PARMESAN",
+      "matched_source": "usda",
+      "amount_grams": 50.0,
+      "nutrition": {
+        "calories": 181.5,
+        "protein": 9.89,
+        "carbs": 31.87,
+        "fat": 1.1
+      }
+    }
+  ],
+  "timestamp": "2026-03-05T13:00:00",
+  "totals": {
+    "calories": 731.5,
+    "protein": 28.46,
+    "carbs": 140.45,
+    "fat": 5.35
+  }
+}

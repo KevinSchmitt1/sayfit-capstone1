@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "name": "macht",
+      "original_amount": null,
+      "original_unit": null,
+      "matched_name": "Salade mâche",
+      "matched_source": "openfoodfacts",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 25.0,
+        "protein": 2.0,
+        "carbs": 3.0,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "pizza",
+      "original_amount": null,
+      "original_unit": null,
+      "matched_name": "PIZZA",
+      "matched_source": "usda",
+      "amount_grams": 150.0,
+      "nutrition": {
+        "calories": 334.5,
+        "protein": 16.11,
+        "carbs": 33.46,
+        "fat": 16.11
+      }
+    },
+    {
+      "name": "eis",
+      "original_amount": null,
+      "original_unit": null,
+      "matched_name": "EDAMAME",
+      "matched_source": "usda",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 150.0,
+        "protein": 10.57,
+        "carbs": 13.66,
+        "fat": 4.85
+      }
+    },
+    {
+      "name": "magnum-mandelnuss",
+      "original_amount": null,
+      "original_unit": null,
+      "matched_name": "Magnum collection frac",
+      "matched_source": "openfoodfacts",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 323.0,
+        "protein": 4.1,
+        "carbs": 29.0,
+        "fat": 20.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T14:54:25",
+  "totals": {
+    "calories": 832.5,
+    "protein": 32.78,
+    "carbs": 79.12,
+    "fat": 40.96
+  }
+}

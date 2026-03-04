@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "name": "walnuts",
+      "original_amount": 300.0,
+      "original_unit": "g",
+      "matched_name": "WALNUTS",
+      "matched_source": "usda",
+      "amount_grams": 300.0,
+      "nutrition": {
+        "calories": 2001.0,
+        "protein": 45.45,
+        "carbs": 45.45,
+        "fat": 200.01
+      }
+    },
+    {
+      "name": "magnum ice cream",
+      "original_amount": 1.0,
+      "original_unit": "piece",
+      "matched_name": "ICE CREAM",
+      "matched_source": "usda",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 231.0,
+        "protein": 3.08,
+        "carbs": 29.23,
+        "fat": 12.31
+      }
+    },
+    {
+      "name": "apple",
+      "original_amount": 1.0,
+      "original_unit": "piece",
+      "matched_name": "APPLE",
+      "matched_source": "usda",
+      "amount_grams": 180.0,
+      "nutrition": {
+        "calories": 82.8,
+        "protein": 0.0,
+        "carbs": 21.01,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "grapes",
+      "original_amount": 50.0,
+      "original_unit": "piece",
+      "matched_name": "GRAPE TOMATOES",
+      "matched_source": "usda",
+      "amount_grams": 4000.0,
+      "nutrition": {
+        "calories": 1440.0,
+        "protein": 47.6,
+        "carbs": 285.6,
+        "fat": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T15:45:08",
+  "totals": {
+    "calories": 3754.8,
+    "protein": 96.13,
+    "carbs": 381.29,
+    "fat": 212.32
+  }
+}

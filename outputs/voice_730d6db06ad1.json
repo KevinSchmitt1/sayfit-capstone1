@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "name": "avocado",
+      "original_amount": 17.0,
+      "original_unit": "piece",
+      "matched_name": "AVOCADO OIL",
+      "matched_source": "usda",
+      "amount_grams": 2550.0,
+      "nutrition": {
+        "calories": 20400.0,
+        "protein": 0.0,
+        "carbs": 0.0,
+        "fat": 2379.91
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T14:54:56",
+  "totals": {
+    "calories": 20400.0,
+    "protein": 0.0,
+    "carbs": 0.0,
+    "fat": 2379.91
+  }
+}

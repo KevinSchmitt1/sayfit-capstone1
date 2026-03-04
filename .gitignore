@@ -35,6 +35,9 @@ dist/
 data/csv/
 data/raw/
 data/processed/
+data/vector_store/
+data/audio_*
+data/transcript_*
 
 
 **.DS_Store

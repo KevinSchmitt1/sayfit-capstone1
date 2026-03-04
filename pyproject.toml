@@ -3,26 +3,45 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "rag-template"
+name = "sayfit"
 version = "0.1.0"
-description = "Starter template for building a Python RAG system with an LLM"
+description = "Voice-to-nutrition pipeline: speak what you ate, get macros back"
 readme = "README.md"
 requires-python = ">=3.11"
-authors = [{ name = "Your Name" }]
+authors = [{ name = "SayFit Team" }]
 dependencies = [
+  # LLM / API
   "openai>=1.40.0",
+  # Embeddings & vector search
+  "sentence-transformers>=2.7.0",
+  "faiss-cpu>=1.8.0",
+  # Data
+  "pandas>=2.1.0",
   "numpy>=1.26.0",
+  # Schema / config
   "pydantic>=2.8.0",
   "pydantic-settings>=2.4.0",
   "python-dotenv>=1.0.1",
+  # CLI output
+  "rich>=13.7.0",
 ]
 
 [project.optional-dependencies]
+audio = [
+  "sounddevice>=0.4.6",
+  "scipy>=1.10.0",
+  "openai-whisper>=20231117",
+  "torch>=2.0.0",
+]
 dev = [
   "pytest>=8.2.0",
   "ruff>=0.5.0",
   "mypy>=1.10.0",
+  "ipykernel",
 ]
+
+[project.scripts]
+sayfit = "sayfit.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

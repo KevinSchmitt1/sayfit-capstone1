@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "name": "yogurt",
+      "original_amount": 120.0,
+      "original_unit": "g",
+      "matched_name": "YOGURT",
+      "matched_source": "usda",
+      "amount_grams": 120.0,
+      "nutrition": {
+        "calories": 120.0,
+        "protein": 8.8,
+        "carbs": 12.8,
+        "fat": 3.2
+      }
+    },
+    {
+      "name": "blueberries",
+      "original_amount": 50.0,
+      "original_unit": "g",
+      "matched_name": "BLUEBERRIES",
+      "matched_source": "usda",
+      "amount_grams": 50.0,
+      "nutrition": {
+        "calories": 25.0,
+        "protein": 0.35,
+        "carbs": 6.07,
+        "fat": 0.35
+      }
+    },
+    {
+      "name": "honey",
+      "original_amount": 10.0,
+      "original_unit": "g",
+      "matched_name": "HONEY",
+      "matched_source": "usda",
+      "amount_grams": 10.0,
+      "nutrition": {
+        "calories": 30.0,
+        "protein": 0.0,
+        "carbs": 8.0,
+        "fat": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T15:00:00",
+  "totals": {
+    "calories": 175.0,
+    "protein": 9.15,
+    "carbs": 26.87,
+    "fat": 3.55
+  }
+}

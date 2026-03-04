@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "name": "egg",
+      "original_amount": 2.0,
+      "original_unit": "piece",
+      "matched_name": "EGG",
+      "matched_source": "usda",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 159.0,
+        "protein": 11.36,
+        "carbs": 2.27,
+        "fat": 11.36
+      }
+    },
+    {
+      "name": "banana",
+      "original_amount": null,
+      "original_unit": "piece",
+      "matched_name": "BANANA",
+      "matched_source": "usda",
+      "amount_grams": 120.0,
+      "nutrition": {
+        "calories": 374.4,
+        "protein": 15.0,
+        "carbs": 48.74,
+        "fat": 7.5
+      }
+    },
+    {
+      "name": "almond milk",
+      "original_amount": 200.0,
+      "original_unit": "ml",
+      "matched_name": "PURE ALMOND MILK",
+      "matched_source": "usda",
+      "amount_grams": 200.0,
+      "nutrition": {
+        "calories": 78.0,
+        "protein": 1.82,
+        "carbs": 12.12,
+        "fat": 3.04
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T14:48:54",
+  "totals": {
+    "calories": 611.4,
+    "protein": 28.18,
+    "carbs": 63.13,
+    "fat": 21.9
+  }
+}

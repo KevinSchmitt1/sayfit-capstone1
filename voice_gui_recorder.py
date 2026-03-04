@@ -2,6 +2,7 @@ import threading
 import datetime as dt
 import uuid
 import json
+import sys
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -12,6 +13,9 @@ from scipy.io.wavfile import write as wav_write
 
 import whisper
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # ---------- CONFIG ----------
 SAMPLE_RATE = 16000
@@ -19,6 +23,7 @@ CHANNELS = 1
 MAX_SECONDS = 15
 
 OUTDIR = Path("data")
+OUTPUT_DIR = Path("outputs")
 
 # Accuracy Hebel:
 # tiny < base < small < medium < large
@@ -28,6 +33,9 @@ LANGUAGE = "None"  # "de", "en", or None for auto
 # Normalisierung: Ziel-Peak in dBFS (z.B. -1 dBFS)
 TARGET_PEAK_DBFS = -1.0
 SAVE_NORMALIZED_WAV = True  # nur zur Kontrolle/Debug; Transkription nutzt die normierte Datei
+
+# SayFit Pipeline — auto-run nutrition analysis after transcription
+RUN_PIPELINE = True
 # ---------------------------
 
 
@@ -37,6 +45,7 @@ def iso_now_local() -> str:
 
 def ensure_dirs():
     OUTDIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def normalize_int16_to_target_peak(audio_i16: np.ndarray, target_peak_dbfs: float = -1.0):
@@ -69,8 +78,8 @@ def normalize_int16_to_target_peak(audio_i16: np.ndarray, target_peak_dbfs: floa
 class App:
     def __init__(self, root: tk.Tk):
         self.root = root
-        root.title("Voice Recorder → Whisper (JSON Output)")
-        root.geometry("760x380")
+        root.title("SayFit 🎙️🥗 – Voice-to-Nutrition")
+        root.geometry("820x560")
         root.resizable(False, False)
 
         ensure_dirs()
@@ -83,16 +92,24 @@ class App:
         self.whisper_model = None
         self.model_lock = threading.Lock()
 
-        self.status_var = tk.StringVar(value="Ready. Click Start (Space toggles).")
-        self.btn = ttk.Button(root, text="Start Recording", command=self.toggle)
+        # SayFit pipeline (lazy-loaded)
+        self._pipeline = None
+        self._pipeline_lock = threading.Lock()
+
+        self.status_var = tk.StringVar(value="Ready. Click Record or press Space. Speak what you ate!")
+        self.btn = ttk.Button(root, text="🎤  Start Recording", command=self.toggle)
         self.btn.pack(pady=14)
 
-        self.status_lbl = ttk.Label(root, textvariable=self.status_var, wraplength=720)
+        self.status_lbl = ttk.Label(root, textvariable=self.status_var, wraplength=780)
         self.status_lbl.pack(pady=6)
 
-        self.text_box = tk.Text(root, height=12, width=95)
+        self.text_box = tk.Text(root, height=22, width=100, font=("Menlo", 11))
         self.text_box.pack(padx=12, pady=10)
-        self._set_text("Transcript will appear here after recording.\n")
+        self._set_text("🍽  Speak what you ate, and SayFit will calculate your nutrition!\n\n"
+                        "Examples:\n"
+                        '  "I had 100g oatmeal, a banana, and 200ml almond milk"\n'
+                        '  "3 eggs and a pepperoni pizza"\n'
+                        '  "Lunch was grilled chicken with rice and broccoli"\n')
 
         root.bind("<space>", lambda _e: self.toggle())
 
@@ -105,8 +122,8 @@ class App:
     def start(self):
         self.frames = []
         self.is_recording = True
-        self.btn.config(text="Stop Recording")
-        self.status_var.set(f"Recording… (auto-stop in {MAX_SECONDS}s).")
+        self.btn.config(text="⏹  Stop Recording")
+        self.status_var.set(f"🔴 Recording… (auto-stop in {MAX_SECONDS}s).")
 
         self.auto_stop_job = self.root.after(MAX_SECONDS * 1000, lambda: self.stop(manual=False))
 
@@ -152,7 +169,7 @@ class App:
         if not self.frames:
             self._reset_state()
             self.status_var.set("No audio captured. Ready.")
-            self.btn.config(state="normal", text="Start Recording")
+            self.btn.config(state="normal", text="🎤  Start Recording")
             return
 
         audio_i16 = np.concatenate(self.frames, axis=0)  # shape (N,1), int16
@@ -226,12 +243,82 @@ class App:
                 encoding="utf-8",
             )
 
-            self.root.after(0, lambda: self._done(text, wav_original, wav_norm, json_path))
+            if RUN_PIPELINE and text:
+                self.root.after(0, lambda: self.status_var.set(
+                    f"✅ Transcribed: \"{text}\"\n🔄 Running nutrition analysis …"
+                ))
+                self.root.after(0, lambda: self._set_text(
+                    f"🎤 You said: \"{text}\"\n\n⏳ Analyzing nutrition …\n"
+                ))
+                nutrition_text = self._run_nutrition_pipeline(text, created_at, rec_id)
+                self.root.after(0, lambda: self._done_with_nutrition(
+                    text, nutrition_text, wav_original, wav_norm, json_path
+                ))
+            else:
+                self.root.after(0, lambda: self._done(text, wav_original, wav_norm, json_path))
         except Exception as e:
             self.root.after(0, lambda: self._err(e))
 
+    def _load_pipeline(self):
+        """Lazy-load the SayFit pipeline (vector store + settings)."""
+        with self._pipeline_lock:
+            if self._pipeline is None:
+                from sayfit.config import get_settings
+                from sayfit.vector_store import FoodVectorStore
+                from sayfit.pipeline import SayFitPipeline
+
+                settings = get_settings()
+                index_dir = settings.faiss_index_dir
+                if not (index_dir / FoodVectorStore.INDEX_FILE).exists():
+                    raise FileNotFoundError(
+                        f"No FAISS index at {index_dir}. Run 'sayfit ingest' first."
+                    )
+                store = FoodVectorStore.load(index_dir)
+                self._pipeline = SayFitPipeline(settings=settings, store=store)
+            return self._pipeline
+
+    def _run_nutrition_pipeline(self, text: str, timestamp: str, rec_id: str) -> str:
+        """Run the SayFit pipeline and return a formatted text result."""
+        try:
+            pipe = self._load_pipeline()
+            save_path = OUTPUT_DIR / f"voice_{rec_id}.json"
+            result = pipe.run(text, timestamp=timestamp, save_path=save_path)
+
+            # Build a nice text table for the GUI
+            lines = []
+            lines.append(f"🎤 You said: \"{text}\"\n")
+            lines.append("─" * 78)
+            lines.append(f"{'Food':<20} {'Matched':<25} {'Grams':>6} {'Cal':>7} {'Prot':>6} {'Carbs':>6} {'Fat':>6}")
+            lines.append("─" * 78)
+            for item in result.items:
+                lines.append(
+                    f"{item.name:<20} {item.matched_name:<25} "
+                    f"{item.amount_grams:>5.0f}g "
+                    f"{item.nutrition.calories:>6.1f} "
+                    f"{item.nutrition.protein:>5.1f}g "
+                    f"{item.nutrition.carbs:>5.1f}g "
+                    f"{item.nutrition.fat:>5.1f}g"
+                )
+            lines.append("─" * 78)
+            t = result.totals
+            lines.append(
+                f"{'TOTAL':<20} {'':<25} {'':>7} "
+                f"{t.calories:>6.1f} {t.protein:>5.1f}g {t.carbs:>5.1f}g {t.fat:>5.1f}g"
+            )
+            lines.append("─" * 78)
+            lines.append(f"\n💾 Saved → {save_path}")
+            return "\n".join(lines)
+        except Exception as e:
+            return f"🎤 You said: \"{text}\"\n\n❌ Pipeline error: {e}"
+
+    def _done_with_nutrition(self, text, nutrition_text, wav_path, wav_norm_path, json_path):
+        """Callback after both transcription + nutrition analysis are complete."""
+        self.btn.config(state="normal", text="🎤  Start Recording")
+        self.status_var.set("✅ Done! Nutrition analysis complete. Record again or close.")
+        self._set_text(nutrition_text)
+
     def _done(self, text: str, wav_path: Path, wav_norm_path: Path, json_path: Path):
-        self.btn.config(state="normal", text="Start Recording")
+        self.btn.config(state="normal", text="🎤  Start Recording")
         if SAVE_NORMALIZED_WAV:
             self.status_var.set(f"Done. Saved: {wav_path.name}, {wav_norm_path.name}, {json_path.name}")
         else:
@@ -239,7 +326,7 @@ class App:
         self._set_text(text if text else "(No speech recognized)")
 
     def _err(self, e: Exception):
-        self.btn.config(state="normal", text="Start Recording")
+        self.btn.config(state="normal", text="🎤  Start Recording")
         self.status_var.set("Error during transcription.")
         messagebox.showerror("Transcription Error", str(e))
         self._set_text("")

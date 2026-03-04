@@ -1,0 +1,53 @@
+{
+  "items": [
+    {
+      "name": "egg",
+      "original_amount": 2.0,
+      "original_unit": "piece",
+      "matched_name": "EGG",
+      "matched_source": "usda",
+      "amount_grams": 100.0,
+      "nutrition": {
+        "calories": 159.0,
+        "protein": 11.36,
+        "carbs": 2.27,
+        "fat": 11.36
+      }
+    },
+    {
+      "name": "avocado",
+      "original_amount": 50.0,
+      "original_unit": "g",
+      "matched_name": "AVOCADO OIL",
+      "matched_source": "usda",
+      "amount_grams": 50.0,
+      "nutrition": {
+        "calories": 400.0,
+        "protein": 0.0,
+        "carbs": 0.0,
+        "fat": 46.66
+      }
+    },
+    {
+      "name": "toast",
+      "original_amount": 1.0,
+      "original_unit": "slice",
+      "matched_name": "ORIGINAL TOAST",
+      "matched_source": "usda",
+      "amount_grams": 30.0,
+      "nutrition": {
+        "calories": 116.7,
+        "protein": 3.33,
+        "carbs": 21.67,
+        "fat": 1.67
+      }
+    }
+  ],
+  "timestamp": "2026-03-05T07:30:00",
+  "totals": {
+    "calories": 675.7,
+    "protein": 14.69,
+    "carbs": 23.94,
+    "fat": 59.69
+  }
+}
