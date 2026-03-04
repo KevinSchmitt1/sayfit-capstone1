@@ -48,7 +48,7 @@
       "unit": null,
       "matched_name": "GREEK YOGHURT",
       "source": "usda",
-      "item_id": "1263266",
+      "item_id": "459257",
       "match_score": 0.5164,
       "confidence": "medium",
       "grams": 100.0,
@@ -67,9 +67,9 @@
       "name": "a peach",
       "amount": null,
       "unit": null,
-      "matched_name": "PEACH PIE, PEACH",
+      "matched_name": "PEACH KOMBUCHA, PEACH",
       "source": "usda",
-      "item_id": "1814095",
+      "item_id": "2400539",
       "match_score": 0.5774,
       "confidence": "high",
       "grams": 100.0,
@@ -78,19 +78,19 @@
         "No amount/unit; fallback 100g"
       ],
       "nutrition": {
-        "calories": 230.0,
-        "protein": 1.77,
-        "carbs": 34.51,
-        "fat": 9.73
+        "calories": 6.0,
+        "protein": 0.0,
+        "carbs": 1.67,
+        "fat": 0.0
       }
     }
   ],
   "timestamp": "2026-03-04T14:09:32+01:00",
   "totals": {
-    "calories": 708.87,
-    "protein": 17.94,
-    "carbs": 81.19,
-    "fat": 35.75
+    "calories": 484.87,
+    "protein": 16.17,
+    "carbs": 48.35,
+    "fat": 26.02
   },
   "follow_ups": [],
   "coaching": [
