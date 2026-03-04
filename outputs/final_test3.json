@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "name": "grilled chicken",
+      "amount": 200.0,
+      "unit": "g",
+      "matched_name": "grilled chicken",
+      "nutrition": {
+        "calories": 478.0,
+        "protein": 54.6,
+        "fiber": 0.0
+      }
+    },
+    {
+      "name": "broccoli",
+      "amount": 100.0,
+      "unit": "g",
+      "matched_name": "broccoli",
+      "nutrition": {
+        "calories": 55.0,
+        "protein": 3.7,
+        "fiber": 2.6
+      }
+    },
+    {
+      "name": "rice",
+      "amount": 150.0,
+      "unit": "g",
+      "matched_name": "rice",
+      "nutrition": {
+        "calories": 195.0,
+        "protein": 3.6,
+        "fiber": 0.6
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T12:45:00",
+  "totals": {
+    "calories": 728.0,
+    "protein": 61.900000000000006,
+    "fiber": 3.2
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "name": "boiled eggs",
+      "amount": 50.0,
+      "unit": "g",
+      "matched_name": "boiled eggs",
+      "nutrition": {
+        "calories": 77.5,
+        "protein": 6.5,
+        "fiber": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-05T07:30:00",
+  "totals": {
+    "calories": 77.5,
+    "protein": 6.5,
+    "fiber": 0.0
+  }
+}
