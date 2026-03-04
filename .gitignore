@@ -30,3 +30,11 @@ dist/
 .env
 .env.*
 !.env.example
+
+# ignore local data artifacts
+data/csv/
+data/raw/
+data/processed/
+
+
+**.DS_Store
