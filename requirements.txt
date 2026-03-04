@@ -1,0 +1,31 @@
+# SayFit unified requirements (pipeline + voice GUI + RAG template)
+
+# Core data stack
+numpy>=1.26.0
+pandas>=2.2.0
+duckdb>=1.0.0
+scipy>=1.10.0
+
+# Audio recording + transcription
+sounddevice>=0.4.6
+openai-whisper>=20231117
+torch>=2.0.0
+
+# App / RAG support
+openai>=1.40.0
+python-dotenv>=1.0.1
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+
+# Legacy matcher scripts
+sentence-transformers>=2.7.0
+scikit-learn>=1.4.0
+
+# Notebook / analysis
+matplotlib>=3.8.0
+seaborn>=0.13.0
+ipykernel>=6.29.0
+
+# Packaging helpers
+setuptools>=68
+wheel>=0.41

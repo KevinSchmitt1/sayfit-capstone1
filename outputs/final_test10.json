@@ -4,40 +4,69 @@
       "name": "pasta",
       "amount": 150.0,
       "unit": "g",
-      "matched_name": "pasta",
+      "matched_name": "PASTA, ROTINI",
+      "source": "usda",
+      "item_id": "2609776",
+      "match_score": 0.5774,
+      "confidence": "high",
+      "grams": 150.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 196.5,
-        "protein": 7.5,
-        "fiber": 3.75
+        "calories": 535.5,
+        "protein": 18.75,
+        "carbs": 112.5,
+        "fat": 2.69
       }
     },
     {
       "name": "tomato sauce",
       "amount": 100.0,
       "unit": "g",
-      "matched_name": "tomato sauce",
+      "matched_name": "TOMATO SAUCE, TOMATO",
+      "source": "usda",
+      "item_id": "2273290",
+      "match_score": 0.866,
+      "confidence": "high",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 29.0,
-        "protein": 1.2,
-        "fiber": 1.5
+        "calories": 41.0,
+        "protein": 1.64,
+        "carbs": 8.2,
+        "fat": 0.0
       }
     },
     {
       "name": "parmesan",
       "amount": 50.0,
       "unit": "g",
-      "matched_name": "parmesan",
+      "matched_name": "PARMESAN, ASIAGO & ROMANO GRATED CHEESE, PARMESAN, ASIAGO & ROMANO",
+      "source": "usda",
+      "item_id": "2056718",
+      "match_score": 0.5164,
+      "confidence": "medium",
+      "grams": 50.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 215.5,
-        "protein": 19.0,
-        "fiber": 0.0
+        "calories": 200.0,
+        "protein": 10.0,
+        "carbs": 10.0,
+        "fat": 15.0
       }
     }
   ],
   "timestamp": "2026-03-05T13:00:00",
   "totals": {
-    "calories": 441.0,
-    "protein": 27.7,
-    "fiber": 5.25
-  }
+    "calories": 776.5,
+    "protein": 30.39,
+    "carbs": 130.7,
+    "fat": 17.69
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
 }

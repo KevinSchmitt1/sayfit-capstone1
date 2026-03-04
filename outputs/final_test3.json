@@ -1,43 +1,72 @@
 {
   "items": [
     {
-      "name": "grilled chicken",
+      "name": "chicken",
       "amount": 200.0,
       "unit": "g",
-      "matched_name": "grilled chicken",
+      "matched_name": "CHICKEN, BEAN & RICE BURRITO, CHICKEN, BEAN & RICE",
+      "source": "usda",
+      "item_id": "2485053",
+      "match_score": 0.5345,
+      "confidence": "high",
+      "grams": 200.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 478.0,
-        "protein": 54.6,
-        "fiber": 0.0
+        "calories": 400.0,
+        "protein": 18.82,
+        "carbs": 55.3,
+        "fat": 11.76
       }
     },
     {
       "name": "broccoli",
       "amount": 100.0,
       "unit": "g",
-      "matched_name": "broccoli",
+      "matched_name": "BROCCOLI, CAULIFLOWER & CARROTS",
+      "source": "usda",
+      "item_id": "1058811",
+      "match_score": 0.5,
+      "confidence": "medium",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 55.0,
-        "protein": 3.7,
-        "fiber": 2.6
+        "calories": 38.0,
+        "protein": 1.28,
+        "carbs": 6.41,
+        "fat": 0.0
       }
     },
     {
       "name": "rice",
       "amount": 150.0,
       "unit": "g",
-      "matched_name": "rice",
+      "matched_name": "Rice, cooked, with milk",
+      "source": "usda",
+      "item_id": "2708416",
+      "match_score": 0.4472,
+      "confidence": "medium",
+      "grams": 150.0,
+      "portion_description": "1 cup, cooked",
+      "assumptions": [],
       "nutrition": {
-        "calories": 195.0,
-        "protein": 3.6,
-        "fiber": 0.6
+        "calories": 216.0,
+        "protein": 7.7,
+        "carbs": 37.52,
+        "fat": 3.46
       }
     }
   ],
   "timestamp": "2026-03-04T12:45:00",
   "totals": {
-    "calories": 728.0,
-    "protein": 61.900000000000006,
-    "fiber": 3.2
-  }
+    "calories": 654.0,
+    "protein": 27.8,
+    "carbs": 99.23,
+    "fat": 15.22
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
 }

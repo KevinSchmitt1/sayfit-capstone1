@@ -1,43 +1,76 @@
-from parser import parse_json_file
-from nutrition_calculator import enrich
-from food_matcher import FoodMatcher
-import os
+from __future__ import annotations
+
+import argparse
 import json
-import glob
+from pathlib import Path
+import sys
 
-def run_pipeline(input_file):
-    os.makedirs("outputs", exist_ok=True)
+sys.path.insert(0, str((Path(__file__).resolve().parent / "src")))
+from sayfit_pipeline import NutritionPipeline
 
-    # Input JSON laden, um Timestamp zu übernehmen
-    with open(input_file, "r") as f:
-        input_data = json.load(f)
 
-    parsed_file = "outputs/parsed_" + os.path.basename(input_file)
-    final_file = "outputs/final_" + os.path.basename(input_file)
-    db_path = "data/food_database.json"
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="SayFit nutrition pipeline")
+    parser.add_argument(
+        "--input",
+        type=Path,
+        help="Path to input JSON with {'text': ..., 'timestamp': ...}",
+    )
+    parser.add_argument(
+        "--input-dir",
+        type=Path,
+        default=Path("input_samples"),
+        help="Directory of input JSON files (used when --input is omitted)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("outputs"),
+        help="Output directory",
+    )
+    parser.add_argument(
+        "--data-dir",
+        type=Path,
+        default=Path("data"),
+        help="Data directory containing processed CSVs or food_dbs.zip",
+    )
+    parser.add_argument(
+        "--goal",
+        type=str,
+        default=None,
+        help="Optional daily goal context (e.g. fat loss, muscle gain)",
+    )
+    return parser
 
-    # 1. Text parsen
-    parse_json_file(input_file, parsed_file, db_path)
 
-    # 2. Matcher initialisieren
-    matcher = FoodMatcher(db_path)
+def run_single(pipeline: NutritionPipeline, input_file: Path, output_dir: Path, goal: str | None) -> Path:
+    payload = json.loads(input_file.read_text())
+    result = pipeline.run(payload, goal=goal)
+    output = pipeline.result_to_dict(result)
 
-    # 3. Nährwerte berechnen
-    enrich(parsed_file, db_path, final_file, matcher)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    out_path = output_dir / f"final_{input_file.name}"
+    out_path.write_text(json.dumps(output, indent=2))
+    return out_path
 
-    # 4. Timestamp ins Output schreiben
-    with open(final_file, "r") as f:
-        output_data = json.load(f)
 
-    output_data["timestamp"] = input_data.get("timestamp", None)
+def main() -> None:
+    args = build_parser().parse_args()
+    pipeline = NutritionPipeline(data_dir=args.data_dir, top_k=8)
 
-    with open(final_file, "w") as f:
-        json.dump(output_data, f, indent=2)
+    if args.input:
+        out_path = run_single(pipeline, args.input, args.output_dir, args.goal)
+        print(f"Pipeline finished. Output written to {out_path}")
+        return
 
-    print(f"Pipeline finished. Output written to {final_file}")
+    input_files = sorted(args.input_dir.glob("*.json"))
+    if not input_files:
+        raise FileNotFoundError(f"No json files found in {args.input_dir}")
+
+    for input_file in input_files:
+        out_path = run_single(pipeline, input_file, args.output_dir, args.goal)
+        print(f"Pipeline finished. Output written to {out_path}")
 
 
 if __name__ == "__main__":
-    # alle Testdateien automatisch durchlaufen
-    for input_file in sorted(glob.glob("input_samples/*.json")):
-        run_pipeline(input_file)
+    main()

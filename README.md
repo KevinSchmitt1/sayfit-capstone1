@@ -1,65 +1,115 @@
-# Python RAG Project Template
+# SayFit Nutrition Pipeline
 
-This template gives you a clean baseline for building a Retrieval-Augmented Generation (RAG) system with an LLM.
+End-to-end pipeline for turning meal text into grounded nutrition totals using USDA + OpenFoodFacts data.
 
-## Project structure
+Implemented flow (from `structure.md`):
 
-```
-.
-├── data/
-│   ├── raw/              # Put source docs here
-│   ├── processed/        # Optional intermediate outputs
-│   └── vector_store/     # Persisted embeddings index
-├── notebooks/            # Experiments
-├── scripts/              # Helper scripts
-├── src/rag_template/
-│   ├── app.py            # CLI: ingest + query
-│   ├── config/           # Settings and env config
-│   ├── core/             # Shared types
-│   ├── generation/       # Prompting + answer synthesis
-│   ├── ingestion/        # Loaders + chunking
-│   ├── pipeline/         # End-to-end indexing/query flows
-│   ├── providers/        # LLM + embedding providers
-│   ├── retrieval/        # Vector store + retrieval
-│   └── utils/            # Utilities
-├── tests/
-├── .env.example
-└── pyproject.toml
-```
+1. Input JSON (`text`, optional `timestamp`)
+2. Item extraction (`name`, `amount`, `unit`) with optional Groq LLM and deterministic fallback
+3. Retrieval (RAG over structured food rows) from USDA + OFF with top K=8 candidates
+4. Grounded selection (deterministic rerank with USDA/OFF preference logic)
+5. Portion normalization to grams (portion table + fallback lexicon)
+6. Deterministic macro math
+7. Output with per-item details, totals, follow-ups, and coaching tips
 
-## Quickstart
+## Data sources
 
-1. Create a virtual environment __(python version 3.14.0)__ and install dependencies:
+The app uses these files in `data/processed/`:
+
+- `off_nutrition_clean.csv`
+- `usda_nutrition_clean.csv`
+
+If missing, it auto-extracts them from `data/food_dbs.zip`.
+
+## Run
+
+## Quickstart (fresh clone)
+
+1. Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e .[dev]
 ```
 
-2. Configure env vars:
+2. Install all Python dependencies (single source of truth):
 
 ```bash
-cp .env .env
-# fill OPENAI_API_KEY
+pip install -U pip
+pip install -r requirements.txt
 ```
 
-3. Add text/markdown files in `data/raw/`.
+3. System dependency for Whisper:
 
-4. Build index:
+- Install `ffmpeg` and ensure it is in your PATH.
+- macOS example:
 
 ```bash
-python -m rag_template.app ingest --data-dir data/raw
+brew install ffmpeg
 ```
 
-5. Ask questions:
+4. Optional audio backend note (macOS/Linux):
+
+- If `sounddevice` fails to open input devices, install PortAudio.
+- macOS example:
 
 ```bash
-python -m rag_template.app query "What are the key points in the documents?"
+brew install portaudio
 ```
 
-## Notes
+## Run
 
-- Vector store is a local JSON-backed numpy implementation for simplicity.
-- Replace provider classes in `providers/` to use other LLMs or embedding APIs.
-- Extend retrieval (reranking, metadata filters, hybrid search) as needed.
+Single file:
+
+```bash
+python main.py --input input_samples/test1.json --output-dir outputs --data-dir data
+```
+
+Batch mode (all `input_samples/*.json`):
+
+```bash
+python main.py --output-dir outputs --data-dir data
+```
+
+Optional goal context:
+
+```bash
+python main.py --input input_samples/test1.json --goal "fat loss"
+```
+
+## Voice recorder GUI (record → transcribe → final JSON)
+
+Run:
+
+```bash
+python voice_gui_recorder.py
+```
+
+What it does:
+
+1. Records microphone audio to WAV
+2. Transcribes with Whisper
+3. Saves raw transcript JSON to `data/transcript_<id>.json`
+4. Runs nutrition pipeline on transcript text
+5. Saves app-ready output JSON to `outputs/final_audio_<id>.json`
+
+The final JSON has the same schema as CLI output (`items`, `totals`, `follow_ups`, `coaching`).
+
+## Output schema
+
+Each output JSON includes:
+
+- `items`: extracted + matched foods with grams, source, confidence, assumptions, nutrition
+- `totals`: calories/protein/carbs/fat
+- `follow_ups`: clarification prompts for low-confidence matches
+- `coaching`: simple end-of-day suggestions
+
+## Optional Groq extraction
+
+If `GROQ_API_KEY` is set in `.env`, extraction step attempts LLM parsing first.
+If unavailable or failing, deterministic extraction is used automatically.
+
+## Notes on requirements files
+
+- `requirements.txt` is the canonical dependency list for this repo.
+- `requirements_audio.txt` and `requirements_data.txt` are compatibility wrappers that forward to `requirements.txt`.

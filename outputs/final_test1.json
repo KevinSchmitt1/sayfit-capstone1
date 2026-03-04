@@ -4,40 +4,69 @@
       "name": "oatmeal",
       "amount": 100.0,
       "unit": "g",
-      "matched_name": "oatmeal",
+      "matched_name": "OATMEAL",
+      "source": "usda",
+      "item_id": "453575",
+      "match_score": 0.7071,
+      "confidence": "high",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 389.0,
-        "protein": 16.9,
-        "fiber": 10.6
+        "calories": 375.0,
+        "protein": 10.0,
+        "carbs": 75.0,
+        "fat": 3.75
       }
     },
     {
       "name": "apple",
       "amount": 150.0,
       "unit": "g",
-      "matched_name": "apple",
+      "matched_name": "APPLE SAUCE, APPLE",
+      "source": "usda",
+      "item_id": "2416265",
+      "match_score": 0.8165,
+      "confidence": "high",
+      "grams": 150.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 78.0,
-        "protein": 0.45,
-        "fiber": 3.6
+        "calories": 106.5,
+        "protein": 0.0,
+        "carbs": 27.87,
+        "fat": 0.0
       }
     },
     {
       "name": "almond milk",
       "amount": 200.0,
       "unit": "ml",
-      "matched_name": "almond milk",
+      "matched_name": "ALMOND MILK",
+      "source": "usda",
+      "item_id": "1597990",
+      "match_score": 0.8165,
+      "confidence": "high",
+      "grams": 200.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 30.0,
-        "protein": 1.2,
-        "fiber": 0.4
+        "calories": 88.0,
+        "protein": 3.08,
+        "carbs": 14.92,
+        "fat": 3.08
       }
     }
   ],
   "timestamp": "2026-03-04T08:00:00",
   "totals": {
-    "calories": 497.0,
-    "protein": 18.549999999999997,
-    "fiber": 14.6
-  }
+    "calories": 569.5,
+    "protein": 13.08,
+    "carbs": 117.79,
+    "fat": 6.83
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
 }

@@ -2,20 +2,58 @@
   "items": [
     {
       "name": "apple",
+      "amount": 1.0,
+      "unit": null,
+      "matched_name": "APPLE",
+      "source": "usda",
+      "item_id": "498595",
+      "match_score": 0.7071,
+      "confidence": "high",
+      "grams": 182.0,
+      "portion_description": null,
+      "assumptions": [
+        "Used default portion for 'apple'",
+        "Used default nutrition profile for 'apple' due implausible DB match"
+      ],
+      "nutrition": {
+        "calories": 94.64,
+        "protein": 0.55,
+        "carbs": 25.48,
+        "fat": 0.36
+      }
+    },
+    {
+      "name": "walnut",
       "amount": 20.0,
       "unit": "g",
-      "matched_name": "apple",
+      "matched_name": "WALNUT TOPPING, WALNUT",
+      "source": "usda",
+      "item_id": "2658973",
+      "match_score": 0.8165,
+      "confidence": "high",
+      "grams": 20.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 10.4,
-        "protein": 0.06,
-        "fiber": 0.48
+        "calories": 135.8,
+        "protein": 2.86,
+        "carbs": 2.86,
+        "fat": 12.86
       }
     }
   ],
   "timestamp": "2026-03-05T10:00:00",
   "totals": {
-    "calories": 10.4,
-    "protein": 0.06,
-    "fiber": 0.48
-  }
+    "calories": 230.44,
+    "protein": 3.41,
+    "carbs": 28.34,
+    "fat": 13.22
+  },
+  "follow_ups": [
+    "'apple' match looked noisy in DB. Using default profile; confirm exact product if branded."
+  ],
+  "coaching": [
+    "Total calories look low for a full meal day. Consider adding a balanced meal.",
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
 }

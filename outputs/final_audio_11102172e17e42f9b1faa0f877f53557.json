@@ -1,0 +1,99 @@
+{
+  "items": [
+    {
+      "name": "half a salami pizza",
+      "amount": null,
+      "unit": null,
+      "matched_name": "HALF & HALF PIZZA",
+      "source": "usda",
+      "item_id": "502270",
+      "match_score": 0.6124,
+      "confidence": "high",
+      "grams": 150.0,
+      "portion_description": null,
+      "assumptions": [
+        "Used default portion for 'pizza'"
+      ],
+      "nutrition": {
+        "calories": 342.0,
+        "protein": 16.54,
+        "carbs": 35.17,
+        "fat": 15.51
+      }
+    },
+    {
+      "name": "one full avocado",
+      "amount": null,
+      "unit": null,
+      "matched_name": "AVOCADO SALSA, AVOCADO",
+      "source": "usda",
+      "item_id": "2508887",
+      "match_score": 0.4714,
+      "confidence": "medium",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [
+        "No amount/unit; fallback 100g"
+      ],
+      "nutrition": {
+        "calories": 83.0,
+        "protein": 0.0,
+        "carbs": 6.67,
+        "fat": 6.67
+      }
+    },
+    {
+      "name": "a small cup of greek yoghurt",
+      "amount": null,
+      "unit": null,
+      "matched_name": "GREEK YOGHURT",
+      "source": "usda",
+      "item_id": "1263266",
+      "match_score": 0.4714,
+      "confidence": "medium",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [
+        "No amount/unit; fallback 100g"
+      ],
+      "nutrition": {
+        "calories": 80.0,
+        "protein": 8.67,
+        "carbs": 11.33,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "a peach",
+      "amount": null,
+      "unit": null,
+      "matched_name": "PEACH KOMBUCHA, PEACH",
+      "source": "usda",
+      "item_id": "1980379",
+      "match_score": 0.5774,
+      "confidence": "high",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [
+        "No amount/unit; fallback 100g"
+      ],
+      "nutrition": {
+        "calories": 6.0,
+        "protein": 0.0,
+        "carbs": 1.67,
+        "fat": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T14:09:32+01:00",
+  "totals": {
+    "calories": 511.0,
+    "protein": 25.21,
+    "carbs": 54.84,
+    "fat": 22.18
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
+}

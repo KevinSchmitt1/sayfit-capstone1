@@ -2,6 +2,7 @@ import threading
 import datetime as dt
 import uuid
 import json
+import sys
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -12,6 +13,9 @@ from scipy.io.wavfile import write as wav_write
 
 import whisper
 
+sys.path.insert(0, str((Path(__file__).resolve().parent / "src")))
+from sayfit_pipeline import NutritionPipeline
+
 
 # ---------- CONFIG ----------
 SAMPLE_RATE = 16000
@@ -19,11 +23,14 @@ CHANNELS = 1
 MAX_SECONDS = 15
 
 OUTDIR = Path("data")
+OUTPUT_DIR = Path("outputs")
+DATA_DIR = Path("data")
 
 # Accuracy Hebel:
 # tiny < base < small < medium < large
 WHISPER_MODEL = "small"
-LANGUAGE = "None"  # "de", "en", or None for auto
+WHISPER_FALLBACK_MODEL = "tiny"
+LANGUAGE = None  # "de", "en", or None for auto-detect
 
 # Normalisierung: Ziel-Peak in dBFS (z.B. -1 dBFS)
 TARGET_PEAK_DBFS = -1.0
@@ -37,6 +44,7 @@ def iso_now_local() -> str:
 
 def ensure_dirs():
     OUTDIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def normalize_int16_to_target_peak(audio_i16: np.ndarray, target_peak_dbfs: float = -1.0):
@@ -81,7 +89,9 @@ class App:
         self.auto_stop_job = None
 
         self.whisper_model = None
+        self.pipeline = None
         self.model_lock = threading.Lock()
+        self.pipeline_lock = threading.Lock()
 
         self.status_var = tk.StringVar(value="Ready. Click Start (Space toggles).")
         self.btn = ttk.Button(root, text="Start Recording", command=self.toggle)
@@ -180,23 +190,33 @@ class App:
         )
         self._set_text("Transcribing… please wait.\n")
 
-        # Transcribe in background (use normalized wav if saved, otherwise transcribe from original)
-        transcribe_path = wav_norm_path if SAVE_NORMALIZED_WAV else wav_path
+        # Transcribe in background from in-memory normalized audio.
+        # This avoids ffmpeg decoding dependency for file-path based transcription.
+        audio_for_asr = audio_norm_i16.reshape(-1).astype(np.float32) / 32768.0
         threading.Thread(
             target=self._transcribe_and_save,
-            args=(transcribe_path, json_path, rec_id, created_at, wav_path, wav_norm_path),
+            args=(audio_for_asr, json_path, rec_id, created_at, wav_path, wav_norm_path),
             daemon=True,
         ).start()
 
     def _load_whisper(self):
         with self.model_lock:
             if self.whisper_model is None:
-                self.whisper_model = whisper.load_model(WHISPER_MODEL)
+                try:
+                    self.whisper_model = whisper.load_model(WHISPER_MODEL)
+                except Exception:
+                    self.whisper_model = whisper.load_model(WHISPER_FALLBACK_MODEL)
             return self.whisper_model
+
+    def _load_pipeline(self):
+        with self.pipeline_lock:
+            if self.pipeline is None:
+                self.pipeline = NutritionPipeline(data_dir=DATA_DIR, top_k=8)
+            return self.pipeline
 
     def _transcribe_and_save(
         self,
-        wav_for_asr: Path,
+        audio_for_asr: np.ndarray,
         json_path: Path,
         rec_id: str,
         created_at: str,
@@ -208,7 +228,7 @@ class App:
 
             # Stabilere Settings (weniger "Raten")
             result = model.transcribe(
-                str(wav_for_asr),
+                audio_for_asr,
                 language=LANGUAGE,
                 fp16=False,          # CPU-safe
                 temperature=0.0,     # deterministischer
@@ -219,6 +239,7 @@ class App:
             payload = {
                 "id": rec_id,
                 "created_at": created_at,
+                "timestamp": created_at,
                 "text": text,
             }
             json_path.write_text(
@@ -226,22 +247,44 @@ class App:
                 encoding="utf-8",
             )
 
-            self.root.after(0, lambda: self._done(text, wav_original, wav_norm, json_path))
+            final_path = OUTPUT_DIR / f"final_audio_{rec_id}.json"
+            pipeline = self._load_pipeline()
+            pipeline_result = pipeline.run(payload)
+            pipeline_out = pipeline.result_to_dict(pipeline_result)
+            final_path.write_text(json.dumps(pipeline_out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+            self.root.after(0, lambda: self._done(text, wav_original, wav_norm, json_path, final_path))
         except Exception as e:
             self.root.after(0, lambda: self._err(e))
 
-    def _done(self, text: str, wav_path: Path, wav_norm_path: Path, json_path: Path):
+    def _done(self, text: str, wav_path: Path, wav_norm_path: Path, json_path: Path, final_path: Path):
         self.btn.config(state="normal", text="Start Recording")
         if SAVE_NORMALIZED_WAV:
-            self.status_var.set(f"Done. Saved: {wav_path.name}, {wav_norm_path.name}, {json_path.name}")
+            self.status_var.set(
+                f"Done. Saved: {wav_path.name}, {wav_norm_path.name}, {json_path.name}, {final_path.name}"
+            )
         else:
-            self.status_var.set(f"Done. Saved: {wav_path.name}, {json_path.name}")
+            self.status_var.set(f"Done. Saved: {wav_path.name}, {json_path.name}, {final_path.name}")
         self._set_text(text if text else "(No speech recognized)")
 
     def _err(self, e: Exception):
         self.btn.config(state="normal", text="Start Recording")
         self.status_var.set("Error during transcription.")
-        messagebox.showerror("Transcription Error", str(e))
+        msg = str(e)
+        hints = []
+        low = msg.lower()
+        if "ffmpeg" in low:
+            hints.append("Install ffmpeg and ensure it is available in PATH.")
+        if "model" in low and "load" in low:
+            hints.append("Check internet access for first model download or switch to a smaller model.")
+        if "no module named" in low:
+            hints.append("Reinstall dependencies with: pip install -r requirements.txt")
+
+        detail = msg
+        if hints:
+            detail += "\n\nPossible fixes:\n- " + "\n- ".join(hints)
+
+        messagebox.showerror("Transcription Error", detail)
         self._set_text("")
 
     def _reset_state(self):

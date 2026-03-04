@@ -1,6 +1,3 @@
-pandas
-numpy
-matplotlib
-seaborn
-ipykernel
-duckdb
+# Kept for backward compatibility.
+# Use the unified requirements file instead.
+-r requirements.txt

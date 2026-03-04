@@ -12,6 +12,8 @@ authors = [{ name = "Your Name" }]
 dependencies = [
   "openai>=1.40.0",
   "numpy>=1.26.0",
+  "pandas>=2.2.0",
+  "duckdb>=1.0.0",
   "pydantic>=2.8.0",
   "pydantic-settings>=2.4.0",
   "python-dotenv>=1.0.1",

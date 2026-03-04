@@ -1,21 +1,55 @@
 {
   "items": [
     {
-      "name": "whole grain bread",
+      "name": "s of whole grain bread",
+      "amount": 2.0,
+      "unit": "slice",
+      "matched_name": "WHOLE GRAIN BREAD",
+      "source": "usda",
+      "item_id": "1211568",
+      "match_score": 0.6708,
+      "confidence": "high",
+      "grams": 200.0,
+      "portion_description": null,
+      "assumptions": [
+        "Unknown portion size; fallback 100g each"
+      ],
+      "nutrition": {
+        "calories": 426.0,
+        "protein": 21.28,
+        "carbs": 80.86,
+        "fat": 4.26
+      }
+    },
+    {
+      "name": "peanut butter",
       "amount": 30.0,
       "unit": "g",
-      "matched_name": "whole grain bread",
+      "matched_name": "PEANUT BUTTER",
+      "source": "usda",
+      "item_id": "2022610",
+      "match_score": 0.8165,
+      "confidence": "high",
+      "grams": 30.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 74.1,
-        "protein": 3.9,
-        "fiber": 2.1
+        "calories": 168.6,
+        "protein": 6.56,
+        "carbs": 7.5,
+        "fat": 14.06
       }
     }
   ],
   "timestamp": "2026-03-04T20:00:00",
   "totals": {
-    "calories": 74.1,
-    "protein": 3.9,
-    "fiber": 2.1
-  }
+    "calories": 594.6,
+    "protein": 27.84,
+    "carbs": 88.36,
+    "fat": 18.32
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
 }

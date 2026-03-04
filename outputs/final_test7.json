@@ -1,43 +1,94 @@
 {
   "items": [
     {
-      "name": "banana",
+      "name": "spinach",
       "amount": 100.0,
       "unit": "g",
-      "matched_name": "banana",
+      "matched_name": "SPINACH",
+      "source": "usda",
+      "item_id": "2377849",
+      "match_score": 0.7071,
+      "confidence": "high",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 89.0,
-        "protein": 1.1,
-        "fiber": 2.6
+        "calories": 24.0,
+        "protein": 2.35,
+        "carbs": 3.53,
+        "fat": 0.0
+      }
+    },
+    {
+      "name": "banana",
+      "amount": 1.0,
+      "unit": null,
+      "matched_name": "BANANA POPS, BANANA",
+      "source": "usda",
+      "item_id": "1506400",
+      "match_score": 0.8165,
+      "confidence": "high",
+      "grams": 118.0,
+      "portion_description": null,
+      "assumptions": [
+        "Used default portion for 'banana'"
+      ],
+      "nutrition": {
+        "calories": 79.06,
+        "protein": 0.0,
+        "carbs": 20.43,
+        "fat": 0.0
       }
     },
     {
       "name": "almond milk",
       "amount": 200.0,
       "unit": "ml",
-      "matched_name": "almond milk",
+      "matched_name": "ALMOND MILK",
+      "source": "usda",
+      "item_id": "489571",
+      "match_score": 0.8165,
+      "confidence": "high",
+      "grams": 200.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 30.0,
-        "protein": 1.2,
-        "fiber": 0.4
+        "calories": 84.0,
+        "protein": 0.84,
+        "carbs": 15.84,
+        "fat": 2.08
       }
     },
     {
-      "name": "spinach",
+      "name": "protein powder",
       "amount": 30.0,
       "unit": "g",
-      "matched_name": "spinach",
+      "matched_name": "PROTEIN POWDER",
+      "source": "usda",
+      "item_id": "553769",
+      "match_score": 0.8165,
+      "confidence": "high",
+      "grams": 30.0,
+      "portion_description": null,
+      "assumptions": [],
       "nutrition": {
-        "calories": 6.9,
-        "protein": 0.87,
-        "fiber": 0.66
+        "calories": 99.9,
+        "protein": 15.0,
+        "carbs": 11.0,
+        "fat": 1.0
       }
     }
   ],
   "timestamp": "2026-03-04T21:30:00",
   "totals": {
-    "calories": 125.9,
-    "protein": 3.17,
-    "fiber": 3.66
-  }
+    "calories": 286.96,
+    "protein": 18.19,
+    "carbs": 50.8,
+    "fat": 3.08
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Total calories look low for a full meal day. Consider adding a balanced meal.",
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
 }
