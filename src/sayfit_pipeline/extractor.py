@@ -13,6 +13,16 @@ AMOUNT_UNIT_NAME_RE = re.compile(
     flags=re.IGNORECASE,
 )
 COUNT_NAME_RE = re.compile(r"(?P<amount>\d+(?:\.\d+)?)\s+(?P<name>[a-zA-Z][a-zA-Z\-\s']+)", flags=re.IGNORECASE)
+WORD_UNIT_NAME_RE = re.compile(
+    r"(?P<amount_word>half|quarter|one|two|three|four|five|a|an)\s+"
+    r"(?P<unit>handful|hand full|pinch|dash|slice|slices|serving|servings|piece|pieces|egg|eggs)\s*(?:of)?\s+"
+    r"(?P<name>[a-zA-Z][a-zA-Z\-\s']+)",
+    flags=re.IGNORECASE,
+)
+WORD_NAME_RE = re.compile(
+    r"(?P<amount_word>half|quarter|one|two|three|four|five)\s+(?:of\s+)?(?P<name>[a-zA-Z][a-zA-Z\-\s']+)",
+    flags=re.IGNORECASE,
+)
 
 STOP_PREFIXES = {
     "i ate",
@@ -44,12 +54,42 @@ LEADING_DESCRIPTORS = {
     "fresh",
     "raw",
 }
+AMOUNT_WORDS = {
+    "a": 1.0,
+    "an": 1.0,
+    "one": 1.0,
+    "two": 2.0,
+    "three": 3.0,
+    "four": 4.0,
+    "five": 5.0,
+    "half": 0.5,
+    "quarter": 0.25,
+}
+QUERY_NOISE_TOKENS = {
+    "of",
+    "handful",
+    "hand",
+    "full",
+    "pinch",
+    "dash",
+    "serving",
+    "servings",
+    "slice",
+    "slices",
+    "piece",
+    "pieces",
+}
 
 
 class ItemExtractor:
     def __init__(self) -> None:
         self.groq_api_key = os.getenv("GROQ_API_KEY")
-        self.enable_llm = os.getenv("SAYFIT_ENABLE_LLM", "0") == "1"
+        llm_flag = os.getenv("SAYFIT_ENABLE_LLM")
+        if llm_flag is None:
+            self.enable_llm = bool(self.groq_api_key)
+        else:
+            self.enable_llm = llm_flag == "1"
+        self.groq_model = os.getenv("GROQ_MODEL", "deepseek-r1-distill-llama-70b")
 
     def extract(self, text: str) -> list[ExtractedItem]:
         if self.enable_llm and self.groq_api_key:
@@ -72,7 +112,7 @@ class ItemExtractor:
                 "Do not invent missing amounts or units."
             )
             resp = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
+                model=self.groq_model,
                 temperature=0,
                 messages=[
                     {"role": "system", "content": prompt},
@@ -129,6 +169,23 @@ class ItemExtractor:
                 items.append(ExtractedItem(name=name, amount=amount, unit=unit))
                 continue
 
+            w = WORD_UNIT_NAME_RE.search(chunk)
+            if w:
+                amount_word = w.group("amount_word").lower().strip()
+                amount = AMOUNT_WORDS.get(amount_word)
+                unit = (w.group("unit") or "").lower().strip() or None
+                name = w.group("name").strip()
+                items.append(ExtractedItem(name=name, amount=amount, unit=unit))
+                continue
+
+            wn = WORD_NAME_RE.search(chunk)
+            if wn:
+                amount_word = wn.group("amount_word").lower().strip()
+                amount = AMOUNT_WORDS.get(amount_word)
+                name = wn.group("name").strip()
+                items.append(ExtractedItem(name=name, amount=amount, unit="piece"))
+                continue
+
             c = COUNT_NAME_RE.search(chunk)
             if c:
                 amount = float(c.group("amount"))
@@ -145,6 +202,12 @@ class ItemExtractor:
             tokens = name.split()
             while len(tokens) > 1 and tokens[0] in LEADING_DESCRIPTORS:
                 tokens = tokens[1:]
+            while len(tokens) > 1 and tokens[0] in QUERY_NOISE_TOKENS:
+                tokens = tokens[1:]
+            if len(tokens) > 2:
+                tokens = [t for t in tokens if t not in QUERY_NOISE_TOKENS]
+                if not tokens:
+                    tokens = name.split()
             name = " ".join(tokens)
             if name.endswith("s") and len(name) > 3 and not name.endswith("ss"):
                 # Keep both plural and singular food words reasonable for search.

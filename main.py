@@ -4,9 +4,26 @@ import argparse
 import json
 from pathlib import Path
 import sys
+import os
 
 sys.path.insert(0, str((Path(__file__).resolve().parent / "src")))
 from sayfit_pipeline import NutritionPipeline
+
+
+def load_env_file(path: Path = Path(".env")) -> None:
+    """Load .env values into os.environ (without overwriting existing env vars)."""
+    if not path.exists():
+        return
+
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip("'").strip('"')
+        if key and key not in os.environ:
+            os.environ[key] = value
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -40,6 +57,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Optional daily goal context (e.g. fat loss, muscle gain)",
     )
+    parser.add_argument(
+        "--top-k",
+        type=int,
+        default=20,
+        help="Number of retrieval candidates before selection (default: 20)",
+    )
     return parser
 
 
@@ -55,8 +78,9 @@ def run_single(pipeline: NutritionPipeline, input_file: Path, output_dir: Path, 
 
 
 def main() -> None:
+    load_env_file(Path(".env"))
     args = build_parser().parse_args()
-    pipeline = NutritionPipeline(data_dir=args.data_dir, top_k=8)
+    pipeline = NutritionPipeline(data_dir=args.data_dir, top_k=args.top_k)
 
     if args.input:
         out_path = run_single(pipeline, args.input, args.output_dir, args.goal)

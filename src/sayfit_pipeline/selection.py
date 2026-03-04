@@ -66,6 +66,16 @@ def _tokens(text: str) -> set[str]:
     return out
 
 
+def _normalize_name_for_exact(text: str) -> str:
+    base = (text or "").lower().strip()
+    if "," in base:
+        base = base.split(",", 1)[0].strip()
+    base = re.sub(r"\s+", " ", base)
+    if base.endswith("s") and len(base) > 3 and not base.endswith("ss"):
+        base = base[:-1]
+    return base
+
+
 def choose_best_candidate(query: str, candidates: list[FoodCandidate]) -> FoodCandidate | None:
     if not candidates:
         return None
@@ -74,6 +84,18 @@ def choose_best_candidate(query: str, candidates: list[FoodCandidate]) -> FoodCa
     q_tokens = _tokens(query)
     simple_query = (len(q_tokens) <= 2) and (not branded_query)
     query_l = query.lower().strip()
+    query_exact = _normalize_name_for_exact(query_l)
+
+    # For plain single-food queries (e.g. "avocado"), prefer exact base-name rows.
+    if simple_query and len(q_tokens) == 1:
+        exact = [
+            c
+            for c in candidates
+            if _normalize_name_for_exact(c.item_name) == query_exact
+        ]
+        if exact:
+            exact.sort(key=lambda c: (c.source != "usda", -c.score))
+            return exact[0]
 
     best = None
     best_score = float("-inf")

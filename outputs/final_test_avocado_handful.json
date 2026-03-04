@@ -1,0 +1,75 @@
+{
+  "items": [
+    {
+      "name": "avocado",
+      "amount": 0.5,
+      "unit": "piece",
+      "matched_name": "AVOCADO",
+      "source": "usda",
+      "item_id": "562115",
+      "match_score": 0.7071,
+      "confidence": "high",
+      "grams": 50.0,
+      "portion_description": null,
+      "assumptions": [
+        "Unknown portion size; fallback 100g each"
+      ],
+      "nutrition": {
+        "calories": 83.5,
+        "protein": 0.0,
+        "carbs": 5.0,
+        "fat": 7.5
+      }
+    },
+    {
+      "name": "almond",
+      "amount": 1.0,
+      "unit": "handful",
+      "matched_name": "ALMONDS",
+      "source": "usda",
+      "item_id": "1577759",
+      "match_score": 0.7071,
+      "confidence": "high",
+      "grams": 30.0,
+      "portion_description": null,
+      "assumptions": [],
+      "nutrition": {
+        "calories": 180.0,
+        "protein": 6.0,
+        "carbs": 6.0,
+        "fat": 16.0
+      }
+    },
+    {
+      "name": "salt",
+      "amount": 1.0,
+      "unit": "pinch",
+      "matched_name": "PEGS SALT, SEASONED SALT",
+      "source": "usda",
+      "item_id": "569958",
+      "match_score": 0.7559,
+      "confidence": "high",
+      "grams": 1.0,
+      "portion_description": null,
+      "assumptions": [],
+      "nutrition": {
+        "calories": 0.0,
+        "protein": 0.0,
+        "carbs": 0.0,
+        "fat": 0.0
+      }
+    }
+  ],
+  "timestamp": "2026-03-04T12:00:00",
+  "totals": {
+    "calories": 263.5,
+    "protein": 6.0,
+    "carbs": 11.0,
+    "fat": 23.5
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Total calories look low for a full meal day. Consider adding a balanced meal.",
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
+}

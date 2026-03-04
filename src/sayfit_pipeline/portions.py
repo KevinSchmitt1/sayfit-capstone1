@@ -26,9 +26,14 @@ UNIT_TO_GRAMS = {
     "cups": 240.0,
     "tbsp": 15.0,
     "tsp": 5.0,
+    "handful": 30.0,
+    "hand full": 30.0,
+    "pinch": 1.0,
+    "dash": 0.6,
 }
 
 DEFAULT_GRAMS_BY_FOOD = {
+    "avocado": 136.0,
     "egg": 50.0,
     "banana": 118.0,
     "apple": 182.0,
@@ -45,8 +50,10 @@ DEFAULT_GRAMS_BY_FOOD = {
 
 UNKNOWN_PORTION_HINTS = {
     "handful": 30.0,
+    "hand full": 30.0,
     "fist": 90.0,
     "pinch": 1.0,
+    "dash": 0.6,
 }
 
 

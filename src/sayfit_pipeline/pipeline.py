@@ -25,7 +25,7 @@ FRUIT_KEYS = {"apple", "banana"}
 
 
 class NutritionPipeline:
-    def __init__(self, data_dir: Path, top_k: int = 8) -> None:
+    def __init__(self, data_dir: Path, top_k: int = 20) -> None:
         self.data_dir = data_dir
         self.food_index = load_food_index(data_dir)
         self.extractor = ItemExtractor()
