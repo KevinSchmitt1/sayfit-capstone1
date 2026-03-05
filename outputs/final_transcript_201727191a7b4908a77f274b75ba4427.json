@@ -1,0 +1,78 @@
+{
+  "items": [
+    {
+      "name": "a big bowl cereal",
+      "amount": null,
+      "unit": null,
+      "matched_name": "ORIGINAL RIP'S BIG BOWL CEREAL, ORIGINAL",
+      "source": "usda",
+      "item_id": "2389369",
+      "match_score": 0.4743,
+      "confidence": "medium",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [
+        "No amount/unit; fallback 100g"
+      ],
+      "nutrition": {
+        "calories": 383.0,
+        "protein": 11.67,
+        "carbs": 70.0,
+        "fat": 7.5
+      }
+    },
+    {
+      "name": "egg",
+      "amount": 2.0,
+      "unit": "piece",
+      "matched_name": "EGG",
+      "source": "usda",
+      "item_id": "2575290",
+      "match_score": 0.7071,
+      "confidence": "high",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [
+        "Used default portion for 'egg'"
+      ],
+      "nutrition": {
+        "calories": 513.0,
+        "protein": 6.41,
+        "carbs": 57.69,
+        "fat": 28.85
+      }
+    },
+    {
+      "name": "a protein shake",
+      "amount": null,
+      "unit": null,
+      "matched_name": "PROTEIN SHAKE",
+      "source": "usda",
+      "item_id": "1661927",
+      "match_score": 0.6667,
+      "confidence": "high",
+      "grams": 100.0,
+      "portion_description": null,
+      "assumptions": [
+        "No amount/unit; fallback 100g"
+      ],
+      "nutrition": {
+        "calories": 49.0,
+        "protein": 9.23,
+        "carbs": 1.54,
+        "fat": 0.92
+      }
+    }
+  ],
+  "timestamp": "2026-03-05T09:42:39+01:00",
+  "totals": {
+    "calories": 945.0,
+    "protein": 27.31,
+    "carbs": 129.23,
+    "fat": 37.27
+  },
+  "follow_ups": [],
+  "coaching": [
+    "Protein is relatively low. Add lean protein sources like yogurt, eggs, chicken, tofu, or legumes."
+  ]
+}
